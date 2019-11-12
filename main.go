@@ -1,15 +1,16 @@
 package main
 
 import (
+	"fmt"
+	"log"
 	"net/http"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-
-	http.ServeFile(w, r, "randomVideo.mp4")
-}
-
 func main() {
-	http.HandleFunc("/", handler)
-	http.ListenAndServe(":8080", nil)
+
+	fmt.Println("starting router")
+
+	router := NewRouter()
+
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
