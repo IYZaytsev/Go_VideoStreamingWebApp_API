@@ -24,4 +24,10 @@ var routes = Routes{
 		"/",
 		handlefunc.Test,
 	},
+	Route{
+		"ReceiveFile",
+		"POST",
+		"/upload",
+		handlefunc.ReceiveFile,
+	},
 }
