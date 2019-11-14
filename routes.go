@@ -19,14 +19,20 @@ type Routes []Route
 
 var routes = Routes{
 	Route{
-		"Test",
+		"ReturnIndex",
 		"GET",
 		"/",
-		handlefunc.Test,
+		handlefunc.ReturnIndex,
 	},
 	Route{
 		"ReceiveFile",
 		"POST",
+		"/upload",
+		handlefunc.ReceiveFile,
+	},
+	Route{
+		"ReceiveFile",
+		"OPTIONS",
 		"/upload",
 		handlefunc.ReceiveFile,
 	},
