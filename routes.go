@@ -36,4 +36,10 @@ var routes = Routes{
 		"/upload",
 		handlefunc.ReceiveFile,
 	},
+	Route{
+		"Watch",
+		"GET",
+		"/watch/{rest:.}",
+		handlefunc.Watch,
+	},
 }
