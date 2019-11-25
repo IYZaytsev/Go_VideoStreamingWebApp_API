@@ -7,9 +7,11 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"mime/multipart"
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 //Page used for sending Json for index
@@ -63,25 +65,56 @@ func Watch(w http.ResponseWriter, r *http.Request) {
 
 //ReceiveFile used to download files from sender
 func ReceiveFile(w http.ResponseWriter, r *http.Request) {
-	var Buf bytes.Buffer
+
 	// in your case file would be fileupload
 	file, header, err := r.FormFile("file")
 	if err != nil {
 		panic(err)
 	}
+	//allows multiple threads for file download
+	//go downloadFiles(file, header)
+	fmt.Print("thread started")
+	start := time.Now()
+	var Buf bytes.Buffer
+	//defer means this will execute when the function returns
 	defer file.Close()
 
-	fmt.Printf("File name %s\n", header.Filename)
+	//fmt.Printf("File name %s\n", header.Filename)
 
 	io.Copy(&Buf, file)
 
 	contents := Buf.Bytes()
-	fmt.Println(contents)
+	//fmt.Println(contents)
 	ioutil.WriteFile("./videos/"+header.Filename, contents, 0644)
 
 	Buf.Reset()
 
 	fmt.Println("file Uploaded !!!!")
+	fmt.Println(time.Since(start))
+
+	return
+
+}
+
+func downloadFiles(file multipart.File, header *multipart.FileHeader) {
+	fmt.Print("thread started")
+	start := time.Now()
+	var Buf bytes.Buffer
+	//defer means this will execute when the function returns
+	defer file.Close()
+
+	//fmt.Printf("File name %s\n", header.Filename)
+
+	io.Copy(&Buf, file)
+
+	contents := Buf.Bytes()
+	//fmt.Println(contents)
+	ioutil.WriteFile("./videos/"+header.Filename, contents, 0644)
+
+	Buf.Reset()
+
+	fmt.Println("file Uploaded !!!!")
+	fmt.Println(time.Since(start))
 
 	return
 }
