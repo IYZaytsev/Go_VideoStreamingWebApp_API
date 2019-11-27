@@ -29,7 +29,7 @@ func ReturnIndex(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, f := range files {
-		if strings.Contains(f.Name(), ".mp4") {
+		if strings.Contains(f.Name(), ".mp4") || strings.Contains(f.Name(), ".webm") {
 			page.VideoNames = append(page.VideoNames, f.Name())
 		}
 	}
@@ -54,9 +54,10 @@ func Watch(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, f := range files {
-		if strings.Contains(f.Name(), ".mp4") {
+		if strings.Contains(f.Name(), ".mp4") || strings.Contains(f.Name(), ".webm") {
 			page.VideoNames = append(page.VideoNames, f.Name())
 		}
+
 	}
 
 	http.ServeFile(w, r, "./videos/"+page.VideoNames[vidIndex])
@@ -71,8 +72,7 @@ func ReceiveFile(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	//allows multiple threads for file download
-	//go downloadFiles(file, header)
+
 	fmt.Print("thread started")
 	start := time.Now()
 	var Buf bytes.Buffer
