@@ -42,4 +42,10 @@ var routes = Routes{
 		"/watch/{rest:.}",
 		handlefunc.Watch,
 	},
+	Route{
+		"serveThumbnail",
+		"GET",
+		"/image/{rest:.}",
+		handlefunc.ServeThumbnails,
+	},
 }
