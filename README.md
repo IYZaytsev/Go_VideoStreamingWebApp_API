@@ -1,9 +1,9 @@
-# Go_VideoStreamingWebApp
+# Go_VideoStreamingWebApp_API
 A rudimentary clone of youtube built as microservices built 
 for a class project to learn the Go programming language 
 
 # Needs the following other project to work 
-> https://github.com/IYZaytsev/Go_VideoStreamingWebApp_API
+> https://github.com/IYZaytsev/Go_VideoStreamingWebApp
 
 Built entirely with Go, HTML/CSS, and basic Javascript (no framework)
 
